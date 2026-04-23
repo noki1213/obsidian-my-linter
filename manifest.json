@@ -1,0 +1,10 @@
+{
+	"id": "my-linter",
+	"name": "My Linter",
+	"version": "1.0.0",
+	"minAppVersion": "1.0.0",
+	"description": "自分用のテキスト整形プラグイン",
+	"author": "noki",
+	"authorUrl": "",
+	"isDesktopOnly": false
+}
