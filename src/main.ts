@@ -17,7 +17,7 @@ export default class MyLinterPlugin extends Plugin {
 	}
 
 	async onunload() {
-		// Restore the original save hook
+		// Restore the original save handler
 		const saveCommand = (this.app as any).commands?.commands?.['editor:save-file'];
 		if (saveCommand && this.originalSaveCallback) {
 			saveCommand.checkCallback = this.originalSaveCallback;
@@ -32,7 +32,7 @@ export default class MyLinterPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 
-	// Manually run lint from the command palette
+	// Run lint manually from the command palette
 	private addLintCommand() {
 		this.addCommand({
 			id: 'lint-file',
@@ -46,7 +46,7 @@ export default class MyLinterPlugin extends Plugin {
 		});
 	}
 
-	// Hook linting into Cmd+S (save)
+	// Hook lint into Cmd+S (save)
 	private registerSaveHook() {
 		const saveCommand = (this.app as any).commands?.commands?.['editor:save-file'];
 		if (!saveCommand) return;
@@ -83,7 +83,7 @@ export default class MyLinterPlugin extends Plugin {
 				try {
 					await this.lintFile(prevFile);
 				} catch (e) {
-					console.error('[my-linter] lint エラー:', e);
+					console.error('[my-linter] lint failed:', e);
 				}
 			})
 		);
@@ -98,7 +98,7 @@ export default class MyLinterPlugin extends Plugin {
 		}
 	}
 
-	// Lint the text in the editor (used on save and on manual run)
+	// Lint the text in the editor (used on save and on manual runs)
 	private lintEditor(editor: Editor) {
 		const oldText = editor.getValue();
 		const newText = this.applyRules(oldText);
